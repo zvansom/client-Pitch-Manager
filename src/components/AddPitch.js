@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
-import { getUsersQuery } from '../queries/queries'
+import { getUsersQuery, addPitchMutation } from '../queries/queries'
 
 
 class AddPitch extends Component {
@@ -12,7 +12,7 @@ class AddPitch extends Component {
   };
 
   displayUsers() {
-    const { data } = this.props;
+    const data = this.props.getUsersQuery;
     if(data.loading) {
       return(
         <option disabled>Loading Users...</option>
@@ -28,7 +28,20 @@ class AddPitch extends Component {
 
   submitForm = e => {
     e.preventDefault();
-    console.log(this.state)
+    const { title, description, user } = this.state;
+    this.props.addPitchMutation({
+      variables: {
+        user,
+        title,
+        description,
+      },
+    });
+
+    this.setState({
+      title: '',
+      description: '',
+      user: '',
+    })
   }
 
   render() {
@@ -61,4 +74,7 @@ class AddPitch extends Component {
   }
 }
 
-export default graphql(getUsersQuery)(AddPitch);
+export default compose(
+  graphql(getUsersQuery, { name: "getUsersQuery"}),
+  graphql(addPitchMutation, { name: "addPitchMutation"}),
+)(AddPitch);
