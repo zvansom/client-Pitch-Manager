@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
 
-const getUsersQuery = gql`
-  {
-    users {
-      name
-      id
-    }
-  }
-`;
+import { getUsersQuery } from '../queries/queries'
+
 
 class AddPitch extends Component {
   displayUsers() {

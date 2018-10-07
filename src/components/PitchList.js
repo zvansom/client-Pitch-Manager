@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
 
-const getPitchesQuery = gql`
-  {
-    pitches {
-      title
-      id
-    }
-  }
-`;
+import { getPitchesQuery } from '../queries/queries'
 
 class PitchList extends Component {
   displayPitches() {
