@@ -5,6 +5,12 @@ import { getUsersQuery } from '../queries/queries'
 
 
 class AddPitch extends Component {
+  state = {
+    title: '',
+    description: '',
+    user: '',
+  };
+
   displayUsers() {
     const { data } = this.props;
     if(data.loading) {
@@ -20,20 +26,31 @@ class AddPitch extends Component {
     }
   }
 
+  submitForm = e => {
+    e.preventDefault();
+    console.log(this.state)
+  }
+
   render() {
     return (
-      <form id="add-pitch">
+      <form id="add-pitch" onSubmit={this.submitForm}>
         <div className="field">
           <label>Pitch title:</label>
-          <input type="text" />
+          <input 
+            type="text" 
+            onChange={ e => this.setState({ title: e.target.value })}
+            value={this.state.title} />
         </div>
         <div className="field">
           <label>Description:</label>
-          <textarea></textarea>
+          <textarea 
+            onChange={ e => this.setState({ description: e.target.value })}
+            value={this.state.description}>
+          </textarea>
         </div>
         <div className="field">
           <label>User:</label>
-          <select>
+          <select onChange={ e => this.setState({ user: e.target.value })}>
             <option>Select user</option>
             { this.displayUsers() }
           </select>
