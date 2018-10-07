@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 
+import PitchDetails from './PitchDetails';
 import { getPitchesQuery } from '../queries/queries'
 
 class PitchList extends Component {
@@ -22,6 +23,7 @@ class PitchList extends Component {
         <ul id="pitch-list">
           { this.displayPitches() }
         </ul>
+        <PitchDetails />
       </div>
     )
   }
