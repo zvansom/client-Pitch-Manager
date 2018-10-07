@@ -17,7 +17,6 @@ class PitchList extends Component {
     }
   }
   render() {
-    console.log(this.props);
     return (
       <div>
         <ul id="pitch-list">

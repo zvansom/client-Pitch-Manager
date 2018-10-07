@@ -19,4 +19,13 @@ const getUsersQuery = gql`
   }
 `;
 
-export { getPitchesQuery, getUsersQuery };
+const addPitchMutation = gql`
+  mutation($title:String!, $description:String, $user:ID!){
+    addPitch(title: $title, description: $description, user: $user) {
+      title
+      id
+    }
+  }
+`;
+
+export { getPitchesQuery, getUsersQuery, addPitchMutation };
