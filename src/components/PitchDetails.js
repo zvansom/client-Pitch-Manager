@@ -9,7 +9,7 @@ class PitchDetails extends Component {
     const { pitch } = this.props.data;
     if(pitch) {
       return(
-        <div>
+        <>
           <h2>{ pitch.title }</h2>
           <p>{ pitch.description }</p>
           <p>{ pitch.user.name }</p>
@@ -19,17 +19,16 @@ class PitchDetails extends Component {
               return <li key={item.id}>{item.title}</li>
             })}
           </ul>
-        </div>
+        </>
       )
     } else {
       return(
-        <div>No pitch selected...</div>
+        <p>No pitch selected...</p>
       )
     }
   }
 
   render() {
-    console.log(this.props);
     return (
       <div id="pitch-details">
         {this.displayPitchDetails()}
