@@ -3,7 +3,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import PitchList from './components/PitchList';
-require('dotenv').config();
+import AddPitch from './components/AddPitch';
 
 // ApolloClient config
 const client = new ApolloClient({
@@ -17,6 +17,7 @@ class App extends Component {
         <div id="main">
           <h1>Test</h1>
           <PitchList />
+          <AddPitch />
         </div>
       </ApolloProvider>
     );
