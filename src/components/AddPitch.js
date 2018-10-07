@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 
-import { getUsersQuery, addPitchMutation } from '../queries/queries'
+import { getUsersQuery, addPitchMutation, getPitchesQuery } from '../queries/queries'
 
 
 class AddPitch extends Component {
@@ -35,6 +35,7 @@ class AddPitch extends Component {
         title,
         description,
       },
+      refetchQueries: [{ query: getPitchesQuery },]
     });
 
     this.setState({
