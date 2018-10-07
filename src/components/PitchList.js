@@ -5,6 +5,10 @@ import PitchDetails from './PitchDetails';
 import { getPitchesQuery } from '../queries/queries'
 
 class PitchList extends Component {
+  state = {
+    selected: null,
+  }
+
   displayPitches() {
     const { data } = this.props;
     if(data.loading) {
@@ -12,7 +16,7 @@ class PitchList extends Component {
     } else {
       return data.pitches.map(pitch => {
         return(
-          <li key={ pitch.id }>{pitch.title}</li>
+          <li key={ pitch.id } onClick={e => this.setState({ selected: pitch.id }) }>{pitch.title}</li>
         );
       });
     }
@@ -23,7 +27,7 @@ class PitchList extends Component {
         <ul id="pitch-list">
           { this.displayPitches() }
         </ul>
-        <PitchDetails />
+        <PitchDetails pitchId={this.state.selected} />
       </div>
     )
   }
