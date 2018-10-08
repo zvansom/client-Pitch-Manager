@@ -1,0 +1,26 @@
+/* FORMS */
+input, 
+textarea {
+  width:100%;
+  padding:10px;
+  border: 1px solid var(--grey);
+}
+
+label {
+  padding: 10px 0;
+  display: block;
+}
+
+.form {
+  background: white;
+  padding: 2rem;
+  box-shadow: var(--yellow);
+}
+
+  .form h2 {
+    margin: 0;
+    font-size: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--grey);
+  }
