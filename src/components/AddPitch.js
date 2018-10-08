@@ -42,7 +42,7 @@ class AddPitch extends Component {
       title: '',
       description: '',
       user: '',
-    })
+    });
   }
 
   render() {

@@ -5,6 +5,8 @@ import {
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
+import { SERVER_URL } from './variables';
+
 import Home from './Routes/Home';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
@@ -13,7 +15,7 @@ import Navbar from './components/Navbar';
 
 // ApolloClient config
 const client = new ApolloClient({
-  uri: 'http://localhost:7777/graphql',
+  uri: `${SERVER_URL}/graphql`,
 });
 
 class App extends Component {
