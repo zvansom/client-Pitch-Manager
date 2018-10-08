@@ -14,7 +14,7 @@ class PitchList extends Component {
   displayPitches() {
     const { data } = this.props;
     if(data.loading) {
-      return ( <div>Loading books...</div>);
+      return ( <div>Loading pitches...</div>);
     } else {
       return data.pitches.map(pitch => {
         return(
@@ -28,7 +28,7 @@ class PitchList extends Component {
       <>
         <h1>User-name's Pitches</h1>
         <ul className="pitches">
-          { this.displayPitches() }
+          {/* { this.displayPitches() } */}
         </ul>
         <PitchDetails pitchId={this.state.selected} />
       </>
