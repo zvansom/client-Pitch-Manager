@@ -14,25 +14,22 @@ export default class Register extends Component {
 
   submitForm = async e => {
     e.preventDefault();
-    const { name, email, password, passwordConfirm } = this.state;
-    const response = await axios.post(`${SERVER_URL}/register`, {
-      name,
-      email,
-      password,
-      passwordConfirm,
-    });
-    if(response.data.errors.length) {
-      response.data.errors.forEach(error => console.error(error));
-      return;
-    }
-    console.log(response)
+    console.log('submit new user:', this.state);
+    try {
+      const response = await axios.post(`${SERVER_URL}/register`, this.state);
+      console.log('response', response);
+      localStorage.setItem('mernToken', response.data.token);
 
-    this.setState({
-      name: '',
-      email: '',
-      password: '',
-      passwordConfirm: '',
-    });
+      this.setState({
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirm: '',
+      });
+    }
+    catch(err) {
+      console.error(err);
+    }
   }
 
   render() {
