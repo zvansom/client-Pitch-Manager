@@ -1,0 +1,7 @@
+.button {
+  border: 0;
+  background: var(--yellow);
+  color: var(--black);
+  font-family: 'Panama';
+  font-weight: 600;
+}
