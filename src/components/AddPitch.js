@@ -1,34 +1,19 @@
 import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
-import { getUsersQuery, addPitchMutation, getPitchesQuery } from '../queries/queries'
+import { addPitchMutation, getPitchesQuery } from '../queries/queries'
 
 
 class AddPitch extends Component {
   state = {
     title: '',
     description: '',
-    user: '',
   };
-
-  displayUsers() {
-    const data = this.props.getUsersQuery;
-    if(data.loading) {
-      return(
-        <option disabled>Loading Users...</option>
-      );
-    } else {
-      return data.users.map(user => {
-        return(
-          <option key={user.id} value={user.id}>{user.name}</option>
-        );
-      });
-    }
-  }
 
   submitForm = e => {
     e.preventDefault();
-    const { title, description, user } = this.state;
+    const { title, description } = this.state;
+    const { user } = this.props;
     this.props.addPitchMutation({
       variables: {
         user,
@@ -41,11 +26,11 @@ class AddPitch extends Component {
     this.setState({
       title: '',
       description: '',
-      user: '',
     });
   }
 
   render() {
+    console.log(this.props.user);
     return (
       <form id="add-pitch" onSubmit={this.submitForm}>
         <div className="field">
@@ -62,20 +47,10 @@ class AddPitch extends Component {
             value={this.state.description}>
           </textarea>
         </div>
-        <div className="field">
-          <label>User:</label>
-          <select onChange={ e => this.setState({ user: e.target.value })}>
-            <option>Select user</option>
-            { this.displayUsers() }
-          </select>
-        </div>
         <button>+</button>
       </form>
     )
   }
 }
 
-export default compose(
-  graphql(getUsersQuery, { name: "getUsersQuery"}),
-  graphql(addPitchMutation, { name: "addPitchMutation"}),
-)(AddPitch);
+export default graphql(addPitchMutation, { name: "addPitchMutation"})(AddPitch);
