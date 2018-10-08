@@ -68,7 +68,9 @@ class App extends Component {
             <Navbar user={this.state.user} updateUser={this.getUser} />
             <div className="inner">
               <Switch>
-                <Route exact path="/" component={Home} />
+                <Route 
+                  exact path="/" 
+                  component={() => (<Home user={this.state.user} />)} />
                 <Route 
                   path="/register" 
                   component={() => (<Register updateUser={this.getUser} />)} />
