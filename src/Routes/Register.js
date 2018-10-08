@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { SERVER_URL } from '../variables';
 
+import '../styles/forms.css';
+
 export default class Register extends Component {
   state = {
     name: '',
@@ -13,24 +15,24 @@ export default class Register extends Component {
   submitForm = async e => {
     e.preventDefault();
     const { name, email, password, passwordConfirm } = this.state;
-    const fetching = await axios.post(`${SERVER_URL}/register`, {
+    const response = await axios.post(`${SERVER_URL}/register`, {
       name,
       email,
       password,
       passwordConfirm,
     });
-    console.log('fetching', fetching);
-    if(fetching.data.errors) {
-      fetching.data.errors.forEach(error => console.error(error));
+    if(response.data.errors.length) {
+      response.data.errors.forEach(error => console.error(error));
       return;
     }
+    console.log(response)
 
     this.setState({
       name: '',
       email: '',
       password: '',
       passwordConfirm: '',
-    })
+    });
   }
 
   render() {
@@ -66,7 +68,7 @@ export default class Register extends Component {
           value={this.state.passwordConfirm}
         />
         <input 
-          className="button button-block"
+          className="button"
           type="submit"
           value="Register Now"
         />
