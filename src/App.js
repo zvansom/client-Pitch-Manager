@@ -32,7 +32,6 @@ class App extends Component {
   };
 
   getUser = async () => {
-    console.log('GET USER RUNNING');
     const token = localStorage.getItem("mernToken");
     if (token) {
       try {
@@ -70,7 +69,9 @@ class App extends Component {
             <div className="inner">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/register" updateUser={this.getUser} component={Register} />
+                <Route 
+                  path="/register" 
+                  component={() => (<Register updateUser={this.getUser} />)} />
                 <Route path="/login" updateUser={this.getUser} component={Login} />
               </Switch>
             </div>

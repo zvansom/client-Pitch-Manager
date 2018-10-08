@@ -14,7 +14,6 @@ export default class Register extends Component {
   
   submitForm = async e => {
     e.preventDefault();
-    console.log('submit new user:', this.state);
     try {
       const response = await axios.post(`${SERVER_URL}/register`, this.state)
       localStorage.setItem('mernToken', response.data.token);
@@ -24,8 +23,8 @@ export default class Register extends Component {
         password: '',
         passwordConfirm: '',
       });
-      console.log('make a call to update user')
       this.props.updateUser();
+      // TODO: Add a redirect to pitches page
     }
     catch(err) {
       console.error(err);
