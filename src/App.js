@@ -13,6 +13,8 @@ import Login from './Routes/Login';
 
 import Navbar from './components/Navbar';
 
+import "./styles/helpers.css";
+
 // ApolloClient config
 const client = new ApolloClient({
   uri: `${SERVER_URL}/graphql`,
@@ -25,11 +27,13 @@ class App extends Component {
         <Router>
           <div id="main">
             <Navbar />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
-            </Switch>
+            <div className="inner">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/register" component={Register} />
+                <Route path="/login" component={Login} />
+              </Switch>
+            </div>
           </div>
         </Router>
       </ApolloProvider>
