@@ -1,7 +1,22 @@
 .button {
   border: 0;
-  background: var(--yellow);
+  background: var(--grey);
   color: var(--black);
   font-family: 'Panama';
   font-weight: 600;
+}
+
+.inner {
+  max-width:900px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+}
+
+@media all and (max-width: 900px) {
+  .inner {
+    padding: 2rem;
+  }
 }
