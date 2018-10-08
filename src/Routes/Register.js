@@ -11,20 +11,21 @@ export default class Register extends Component {
     password: '',
     passwordConfirm: '',
   }
-
+  
   submitForm = async e => {
     e.preventDefault();
     console.log('submit new user:', this.state);
     try {
-      const response = await axios.post(`${SERVER_URL}/register`, this.state);
+      const response = await axios.post(`${SERVER_URL}/register`, this.state)
       localStorage.setItem('mernToken', response.data.token);
-
       this.setState({
         name: '',
         email: '',
         password: '',
         passwordConfirm: '',
       });
+      console.log('make a call to update user')
+      this.props.updateUser();
     }
     catch(err) {
       console.error(err);

@@ -32,20 +32,21 @@ class App extends Component {
   };
 
   getUser = async () => {
+    console.log('GET USER RUNNING');
     const token = localStorage.getItem("mernToken");
     if (token) {
       try {
-        // There is a token in localStorage. Try to validate it!
-        const response = await axios
-        .post(SERVER_URL + "/auth/me/from/token", {
+      // There is a token in localStorage. Try to validate it!
+        const response = await axios.post(SERVER_URL + "/me/from/token", {
           headers: { Authorization: `Bearer ${token}` },
         });
         this.setState({
           user: response.data.user,
           checkLogin: true,
         });
-      }
+      } 
       catch(err) {
+        console.error('error', err);
         localStorage.removeItem("mernToken");
         this.setState({
           user: null,
@@ -55,7 +56,7 @@ class App extends Component {
     } else {
       this.setState({
         user: null,
-        checkLogin: true,
+        checkLogin: false,
       });
     }
   };
@@ -65,12 +66,12 @@ class App extends Component {
       <ApolloProvider client={client}>
         <Router>
           <div id="main">
-            <Navbar />
+            <Navbar user={this.state.user} updateUser={this.getUser} />
             <div className="inner">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/register" component={Register} />
-                <Route path="/login" component={Login} />
+                <Route path="/register" updateUser={this.getUser} component={Register} />
+                <Route path="/login" updateUser={this.getUser} component={Login} />
               </Switch>
             </div>
           </div>
