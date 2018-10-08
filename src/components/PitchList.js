@@ -4,6 +4,8 @@ import { graphql } from 'react-apollo';
 import PitchDetails from './PitchDetails';
 import { getPitchesQuery } from '../queries/queries'
 
+import '../styles/pitch-list.css'
+
 class PitchList extends Component {
   state = {
     selected: null,
@@ -23,12 +25,13 @@ class PitchList extends Component {
   }
   render() {
     return (
-      <div>
-        <ul id="pitch-list">
+      <>
+        <h1>User-name's Pitches</h1>
+        <ul className="pitches">
           { this.displayPitches() }
         </ul>
         <PitchDetails pitchId={this.state.selected} />
-      </div>
+      </>
     )
   }
 }
