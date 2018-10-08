@@ -17,7 +17,6 @@ export default class Register extends Component {
     console.log('submit new user:', this.state);
     try {
       const response = await axios.post(`${SERVER_URL}/register`, this.state);
-      console.log('response', response);
       localStorage.setItem('mernToken', response.data.token);
 
       this.setState({
