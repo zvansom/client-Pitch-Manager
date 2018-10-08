@@ -1,3 +1,4 @@
+/* Define variables and default fonts */
 :root {
   --grey: #ccc;
   --black: #303030;
@@ -60,47 +61,3 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-/* NAVBAR */
-
-
-/* FORMS */
-input, 
-textarea {
-  width:100%;
-  padding:10px;
-  border: 1px solid var(--grey);
-}
-
-label {
-  padding: 10px 0;
-  display: block;
-}
-
-.form {
-  background: white;
-  padding: 2rem;
-  box-shadow: var(--yellow);
-}
-
-  .form h2 {
-    margin: 0;
-    font-size: 2rem;
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--grey);
-  }
-
-/* HELPERS */
-.button {
-  border: 0;
-  background: var(--yellow);
-  color: var(--black);
-  font-family: 'Panama';
-  font-weight: 600;
-}
-
-  .button-block {
-    margin: 0;
-    width: 100%;
-    display: block;
-  }
