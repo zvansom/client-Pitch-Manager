@@ -11,22 +11,22 @@ export default class Login extends Component {
     password: '',
   }
 
-loginUser = async e => {
-  e.preventDefault();
-  const { email, password } = this.state;
-  const response = await axios.post(`${SERVER_URL}/login`, {
-    email,
-    password,
-  });
-  if(response.data.errors.length) {
-    response.data.errors.forEach(error => console.error(error));
-    return;
+  loginUser = async e => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${SERVER_URL}/login`, this.state);
+      localStorage.setItem('mernToken', response.data.token);
+      this.setState({
+        email: '',
+        password: '',
+      });
+      this.props.updateUser();
+      // TODO: Add a redirect to pitches page
+    }
+    catch(err) {
+      console.error(err);
+    }
   }
-  this.setState({
-    email: '',
-    password: '',
-  });
-}
 
   render() {
     return (

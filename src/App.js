@@ -72,7 +72,9 @@ class App extends Component {
                 <Route 
                   path="/register" 
                   component={() => (<Register updateUser={this.getUser} />)} />
-                <Route path="/login" updateUser={this.getUser} component={Login} />
+                <Route 
+                  path="/login" 
+                  component={() => (<Login updateUser={this.getUser} />)} />
               </Switch>
             </div>
           </div>
