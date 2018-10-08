@@ -4,6 +4,7 @@ import {
   Route, Switch } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import axios from 'axios';
 
 import { SERVER_URL } from './variables';
 
@@ -21,6 +22,44 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
+  state = {
+    user: null,
+    checkLogin: false,
+  };
+
+  componentDidMount = () => {
+    this.getUser();
+  };
+
+  getUser = async () => {
+    const token = localStorage.getItem("mernToken");
+    if (token) {
+      try {
+        // There is a token in localStorage. Try to validate it!
+        const response = await axios
+        .post(SERVER_URL + "/auth/me/from/token", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        this.setState({
+          user: response.data.user,
+          checkLogin: true,
+        });
+      }
+      catch(err) {
+        localStorage.removeItem("mernToken");
+        this.setState({
+          user: null,
+          checkLogin: true,
+        });
+      }
+    } else {
+      this.setState({
+        user: null,
+        checkLogin: true,
+      });
+    }
+  };
+
   render() {
     return (
       <ApolloProvider client={client}>
