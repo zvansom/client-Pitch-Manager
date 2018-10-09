@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 
-import PitchDetails from './PitchDetails';
-import { getPitchesQuery } from '../queries/queries'
+import { getPitchesQuery } from '../queries/queries';
 
 import '../styles/pitch-list.css'
 
-class PitchList extends Component {
+class Pitches extends Component {
   state = {
     selected: null,
   }
@@ -26,14 +25,18 @@ class PitchList extends Component {
   render() {
     return (
       <>
-        <h1>User-name's Pitches</h1>
-        <ul className="pitches">
-          {/* { this.displayPitches() } */}
-        </ul>
-        <PitchDetails pitchId={this.state.selected} />
+        <h1>This should be where the user's pitches should be listed</h1>
       </>
     )
   }
 }
 
-export default graphql(getPitchesQuery)(PitchList)
+export default graphql(getPitchesQuery, {
+    options: (props) => {
+      if(props.user) {
+        return { variables: {
+          id: props.user.id,
+        }}
+      }
+    }
+  })(Pitches)
