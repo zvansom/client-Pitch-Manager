@@ -4,23 +4,17 @@ import {
   Redirect,
 } from "react-router-dom";
 
-const ProtectedRoute = ({component: Component, ...rest }) => (
+export const ProtectedRoute = ({component: Component, authenticated, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      props.authenticated ? (
+      authenticated ? (
         <Component {...props} />
       ) : (
         <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location }
-          }}
+          to="/login"
         />
       )
     }
   />
 );
-
-
-export default ProtectedRoute;

@@ -10,7 +10,6 @@ export default class Login extends Component {
   state = {
     email: '',
     password: '',
-    redirectToReferrer: false,
   }
 
   loginUser = async e => {
@@ -21,22 +20,18 @@ export default class Login extends Component {
       this.setState({
         email: '',
         password: '',
-        redirectToReferrer: true,
       });
       this.props.updateUser();
-      // TODO: Add a redirect to pitches page
     }
     catch(err) {
+      // TODO: Pass message to client side with error message.
       console.error(err);
     }
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { redirectToReferrer } = this.state;
-
-    if(redirectToReferrer) { 
-      return <Redirect to={from} />;
+    if(this.props.authenticated) {
+      return <Redirect to="/pitches" />
     }
 
     return (

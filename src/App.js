@@ -16,7 +16,7 @@ import AddPitch from './components/AddPitch';
 import { FourOhFour } from './Routes/FourOhFour';
 
 import Navbar from './components/Navbar';
-import ProtectedRoute from './components/utilities/ProtectedRoute';
+import { ProtectedRoute } from './components/utilities/ProtectedRoute';
 
 import "./styles/helpers.css";
 
@@ -49,6 +49,7 @@ class App extends Component {
         });
       } 
       catch(err) {
+        // TODO: Pass message to client side with error message.
         console.error('error', err);
         localStorage.removeItem("mernToken");
         this.setState({
@@ -81,11 +82,18 @@ class App extends Component {
                   component={() => (<Home user={this.state.user} />)} />
                 <Route 
                   path="/register" 
-                  component={() => (<Register updateUser={this.getUser} />)} />
+                  component={() => (
+                    <Register 
+                      updateUser={this.getUser} 
+                      authenticated={this.state.isAuthenticated}
+                /> )} />
                 <Route 
                   path="/login" 
-                  component={() => (<Login updateUser={this.getUser} />)}
-                  authenticated={this.state.isAuthenticated} />
+                  component={() => (
+                    <Login 
+                      updateUser={this.getUser} 
+                      authenticated={this.state.isAuthenticated}
+                /> )} />
                 <ProtectedRoute
                   path="/pitches"
                   component={Pitches}
