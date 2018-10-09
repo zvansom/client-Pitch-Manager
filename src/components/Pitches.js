@@ -15,7 +15,7 @@ class Pitches extends Component {
     if(data.loading) {
       return ( <div>Loading pitches...</div>);
     } else {
-      return data.pitches.map(pitch => {
+      return data.user.pitches.map(pitch => {
         return(
           <li key={ pitch.id } onClick={e => this.setState({ selected: pitch.id }) }>{pitch.title}</li>
         );
@@ -25,7 +25,9 @@ class Pitches extends Component {
   render() {
     return (
       <>
-        <h1>This should be where the user's pitches should be listed</h1>
+        <ul>
+          {this.displayPitches()}
+        </ul>
       </>
     )
   }
