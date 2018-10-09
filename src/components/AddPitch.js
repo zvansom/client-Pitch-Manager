@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 
 import { addPitchMutation, getPitchesQuery } from '../queries/queries'
@@ -16,13 +17,13 @@ class AddPitch extends Component {
     const { user } = this.props;
     this.props.addPitchMutation({
       variables: {
-        user,
+        user: user.id,
         title,
         description,
       },
       refetchQueries: [{ query: getPitchesQuery },]
     });
-
+    
     this.setState({
       title: '',
       description: '',
@@ -30,7 +31,6 @@ class AddPitch extends Component {
   }
 
   render() {
-    console.log('user:', this.props.user);
     return (
       <form id="add-pitch" onSubmit={this.submitForm}>
         <div className="field">
