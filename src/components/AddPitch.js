@@ -30,7 +30,7 @@ class AddPitch extends Component {
   }
 
   render() {
-    console.log(this.props.user);
+    console.log('user:', this.props.user);
     return (
       <form id="add-pitch" onSubmit={this.submitForm}>
         <div className="field">

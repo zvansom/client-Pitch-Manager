@@ -1,39 +1,20 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 
+import AuthButton from './utilities/AuthButton';
+
 import "../styles/Navbar.css";
 
 export default class Navbar extends Component {
-  handleLogout = e => {
-    console.log('logging out...');
-    e.preventDefault();
-    localStorage.removeItem('mernToken');
-    this.props.updateUser();
-  }
-
-  userNav() {
-    if(!this.props.user){
+  siteNav() {
+    if(this.props.user){ 
       return(
-        <div className="nav__section nav__section--user">        
-          <NavLink 
+        <NavLink 
             className="nav__link" 
             activeClassName="nav__link--active" 
-            to="/register">
-            Register
+            exact to="/">
+            Home
           </NavLink>
-          <NavLink 
-            className="nav__link" 
-            activeClassName="nav__link--active" 
-            to="/login">
-            Login
-          </NavLink>
-        </div>        
-      )
-    } else {
-      return(
-        <button className="nav__link" onClick={this.handleLogout}>
-          Logout
-        </button>
       )
     }
   }
@@ -48,8 +29,20 @@ export default class Navbar extends Component {
             exact to="/">
             Home
           </NavLink>
-        </div>
-        {this.userNav()}
+          {this.siteNav()}
+        </div> 
+        <div className="nav__section nav__section--user">        
+          <NavLink 
+            className="nav__link" 
+            activeClassName="nav__link--active" 
+            to="/register">
+            Register
+          </NavLink>
+          <AuthButton 
+            className="nav__link" 
+            activeClassName="nav__link--active" 
+            to="/login" />
+        </div> 
       </nav>
     )
   }
