@@ -96,14 +96,18 @@ class App extends Component {
                 /> )} />
                 <ProtectedRoute
                   path="/pitches"
-                  component={Pitches}
-                  user={this.state.user}
-                  authenticated={this.state.isAuthenticated} />
+                  authenticated={this.state.isAuthenticated}
+                  component={() => (
+                    <Pitches
+                      user={this.state.user}
+                  /> )} />
                 <ProtectedRoute
                   path="/pitch/new"
-                  component={AddPitch}
-                  user={this.state.user}
-                  authenticated={this.state.isAuthenticated} />
+                  authenticated={this.state.isAuthenticated} 
+                  component={() => (
+                    <AddPitch
+                      user={this.state.user}
+                  /> )} />
                 <Route component={FourOhFour} />
               </Switch>
             </div>
