@@ -12,6 +12,8 @@ import Home from './Routes/Home';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
 import Pitches from './components/Pitches';
+import AddPitch from './components/AddPitch';
+import { FourOhFour } from './Routes/FourOhFour';
 
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/utilities/ProtectedRoute';
@@ -32,12 +34,6 @@ class App extends Component {
   componentDidMount = () => {
     this.getUser();
   };
-
-  handleLogout = e => {
-    e.preventDefault();
-    localStorage.removeItem('mernToken');
-    this.getUser();
-  }
 
   getUser = async () => {
     const token = localStorage.getItem("mernToken");
@@ -91,10 +87,16 @@ class App extends Component {
                   component={() => (<Login updateUser={this.getUser} />)}
                   authenticated={this.state.isAuthenticated} />
                 <ProtectedRoute
-                  path="/profile"
+                  path="/pitches"
                   component={Pitches}
                   user={this.state.user}
                   authenticated={this.state.isAuthenticated} />
+                <ProtectedRoute
+                  path="/pitch/new"
+                  component={AddPitch}
+                  user={this.state.user}
+                  authenticated={this.state.isAuthenticated} />
+                <Route component={FourOhFour} />
               </Switch>
             </div>
           </div>
