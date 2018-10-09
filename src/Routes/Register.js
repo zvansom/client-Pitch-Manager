@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Redirect, } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../variables';
 
@@ -14,6 +15,7 @@ export default class Register extends Component {
   
   submitForm = async e => {
     e.preventDefault();
+    console.log('history', this.props.history)
     try {
       const response = await axios.post(`${SERVER_URL}/register`, this.state)
       localStorage.setItem('mernToken', response.data.token);
@@ -24,14 +26,18 @@ export default class Register extends Component {
         passwordConfirm: '',
       });
       this.props.updateUser();
-      // TODO: Add a redirect to pitches page
     }
     catch(err) {
+      // TODO: Pass message to client side with error message.
       console.error(err);
     }
   }
 
   render() {
+    if(this.props.authenticated) {
+      return <Redirect to="/pitches" />
+    }
+
     return (
       <form className="form" onSubmit={this.submitForm}>
         <h2>Register</h2>
