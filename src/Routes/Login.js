@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import { SERVER_URL } from '../variables';
@@ -9,6 +10,7 @@ export default class Login extends Component {
   state = {
     email: '',
     password: '',
+    redirectToReferrer: false,
   }
 
   loginUser = async e => {
@@ -19,6 +21,7 @@ export default class Login extends Component {
       this.setState({
         email: '',
         password: '',
+        redirectToReferrer: true,
       });
       this.props.updateUser();
       // TODO: Add a redirect to pitches page
@@ -29,6 +32,13 @@ export default class Login extends Component {
   }
 
   render() {
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const { redirectToReferrer } = this.state;
+
+    if(redirectToReferrer) { 
+      return <Redirect to={from} />;
+    }
+
     return (
       <form className="form" onSubmit={this.loginUser}>
         <h2>Login</h2>

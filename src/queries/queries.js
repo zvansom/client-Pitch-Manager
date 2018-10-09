@@ -2,12 +2,14 @@ import { gql } from 'apollo-boost';
 
 
 const getPitchesQuery = gql`
-  {
+query($id:ID) {
+  user(id:$id) {
     pitches {
       title
       id
     }
   }
+}
 `;
 
 const getUsersQuery = gql`
