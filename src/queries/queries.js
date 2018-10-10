@@ -16,6 +16,7 @@ query($id:ID) {
   user(id:$id) {
     clients {
       name
+      editor
       id
     }
   }

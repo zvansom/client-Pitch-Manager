@@ -18,7 +18,9 @@ class Clients extends Component {
     } else {
       return data.user.clients.map(client => {
         return(
-          <li key={ client.id } onClick={e => this.setState({ selected: client.id }) }>{client.name}</li>
+          <li key={ client.id } onClick={e => this.setState({ selected: client.id }) }>
+            {client.name} - {client.editor}
+          </li>
         );
       });
     }
