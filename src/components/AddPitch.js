@@ -4,7 +4,10 @@ import { graphql, compose } from 'react-apollo';
 import { 
   addPitchMutation,
   getClientsQuery,
- } from '../queries/queries'
+ } from '../queries/queries';
+
+ import '../styles/forms.css';
+import '../styles/helpers.css';
 
 class AddPitch extends Component {
   state = {
@@ -51,7 +54,7 @@ class AddPitch extends Component {
 
   render() {
     return (
-      <form id="add-pitch" onSubmit={this.submitForm}>
+      <form className="modal form" onSubmit={this.submitForm}>
         <div className="field">
           <label>Pitch title:</label>
           <input 

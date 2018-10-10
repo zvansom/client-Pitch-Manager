@@ -9,6 +9,7 @@ import '../styles/pitch-list.css'
 class Pitches extends Component {
   state = {
     selected: null,
+    open: false,
   }
 
   displayPitches() {
@@ -18,7 +19,10 @@ class Pitches extends Component {
     } else {
       return data.user.pitches.map(pitch => {
         return(
-          <li key={ pitch.id } onClick={e => this.setState({ selected: pitch.id }) }>{pitch.title}</li>
+          <div className="pitch" key={ pitch.id } onClick={e => this.setState({ selected: pitch.id }) }>
+            <h2 className="pitch__title">{pitch.title}</h2>
+            <p className="pitch__status">Status</p>
+          </div>
         );
       });
     }
@@ -26,10 +30,13 @@ class Pitches extends Component {
   render() {
     return (
       <>
-        <AddPitch refetch={this.props.data.refetch} user={this.props.user} />
-        <ul>
+        <div className="pitch-container">
           {this.displayPitches()}
-        </ul>
+        </div>
+        <button onClick={e => this.setState({ open: !this.state.open})}> + </button>
+        {this.state.open && 
+          <AddPitch refetch={this.props.data.refetch} user={this.props.user} />
+        }
       </>
     )
   }

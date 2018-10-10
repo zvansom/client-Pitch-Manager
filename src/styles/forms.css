@@ -12,7 +12,7 @@ label {
 }
 
 .form {
-  background: white;
+  background: var(--grey);
   padding: 2rem;
   box-shadow: var(--yellow);
 }
