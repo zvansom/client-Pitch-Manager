@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import AddPitch from './AddPitch';
 
 import { getPitchesQuery } from '../queries/queries';
 
@@ -25,6 +26,7 @@ class Pitches extends Component {
   render() {
     return (
       <>
+        <AddPitch refetch={this.props.data.refetch} user={this.props.user} />
         <ul>
           {this.displayPitches()}
         </ul>
