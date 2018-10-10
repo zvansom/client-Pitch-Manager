@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+
 import { AuthButton, } from './utilities/AuthButton';
 
 import "../styles/Navbar.css";
 
 export default class Navbar extends Component {
+  static propTypes = {
+    authenticated: PropTypes.bool,
+    updateUser: PropTypes.func,
+  }
+
   siteNav() {
     if(this.props.authenticated){ 
       return(
         <>
-          <NavLink 
-            className="nav__link" 
-            activeClassName="nav__link--active" 
-            to="/pitch/new"
-          >
-            Add a Pitch
-          </NavLink>
           <NavLink 
             className="nav__link" 
             activeClassName="nav__link--active" 

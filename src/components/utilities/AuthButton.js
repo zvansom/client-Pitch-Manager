@@ -3,8 +3,9 @@ import {
   withRouter,
   NavLink,
 } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-export const AuthButton = withRouter(({ history, logout, authenticated }) => {
+export const AuthButton = withRouter(({ logout, authenticated }) => {
   return (  
     authenticated ? (
       <button
@@ -24,3 +25,8 @@ export const AuthButton = withRouter(({ history, logout, authenticated }) => {
     )
   );
 });
+
+AuthButton.propTypes = {
+  authenticated: PropTypes.bool,
+  logout: PropTypes.func,
+}
