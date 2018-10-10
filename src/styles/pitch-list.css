@@ -1,3 +1,19 @@
-h1 {
-  font-size: 4rem;
+.pitch-container {
+  position: relative;
 }
+
+.pitch {
+  border: 1px solid black;
+  margin: 10px 0;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+  .pitch__title {
+    font-size: 2rem;
+  }
+
+  .pitch__status {
+    background: yellow;
+  }
