@@ -20,9 +20,14 @@ export default class Navbar extends Component {
           <NavLink 
             className="nav__link" 
             activeClassName="nav__link--active" 
-            to="/pitches"
-          >
+            to="/pitches">
             My Pitches
+          </NavLink>
+          <NavLink 
+            className="nav__link" 
+            activeClassName="nav__link--active" 
+            to="/clients">
+            My Clients
           </NavLink>
         </>
       );

@@ -15,7 +15,6 @@ export default class Register extends Component {
   
   submitForm = async e => {
     e.preventDefault();
-    console.log('history', this.props.history)
     try {
       const response = await axios.post(`${SERVER_URL}/register`, this.state)
       localStorage.setItem('mernToken', response.data.token);
