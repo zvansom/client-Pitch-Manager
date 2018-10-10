@@ -12,7 +12,6 @@ import Home from './Routes/Home';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
 import Pitches from './components/Pitches';
-import AddPitch from './components/AddPitch';
 import { FourOhFour } from './Routes/FourOhFour';
 
 import Navbar from './components/Navbar';
@@ -71,7 +70,6 @@ class App extends Component {
         <Router>
           <div id="main">
             <Navbar 
-              user={this.state.user} 
               updateUser={this.getUser} 
               authenticated={this.state.isAuthenticated}
             />
@@ -79,7 +77,7 @@ class App extends Component {
               <Switch>
                 <Route 
                   exact path="/" 
-                  component={() => (<Home user={this.state.user} />)} />
+                  component={<Home />} />
                 <Route 
                   path="/register" 
                   component={() => (
@@ -101,13 +99,13 @@ class App extends Component {
                     <Pitches
                       user={this.state.user}
                   /> )} />
-                <ProtectedRoute
+                {/* <ProtectedRoute
                   path="/pitch/new"
                   authenticated={this.state.isAuthenticated} 
                   component={() => (
                     <AddPitch
                       user={this.state.user}
-                  /> )} />
+                  /> )} /> */}
                 <Route component={FourOhFour} />
               </Switch>
             </div>

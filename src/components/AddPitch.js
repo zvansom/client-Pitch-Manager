@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 
-import { addPitchMutation, getPitchesQuery } from '../queries/queries'
+import { addPitchMutation, } from '../queries/queries'
 
 
 class AddPitch extends Component {
@@ -21,7 +20,10 @@ class AddPitch extends Component {
         title,
         description,
       },
-      refetchQueries: [{ query: getPitchesQuery },]
+    }).then(({ data }) => {
+      this.props.refetch();
+    }).catch(error => {
+      console.error(error);
     });
     
     this.setState({
