@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
-import { addPitchMutation, } from '../queries/queries'
-
+import { 
+  addPitchMutation,
+  getClientsQuery,
+ } from '../queries/queries'
 
 class AddPitch extends Component {
   state = {
     title: '',
     description: '',
   };
+
+  displayClients() {
+    const data = this.props.getClientsQuery;
+    if(data.loading) {
+      return(
+        <option disabled>Loading Clients...</option>
+      );
+    } else {
+      return data.user.clients.map(client => {
+        return(
+          <option key={client.id} value={client.id}>{client.name}</option>
+        );
+      });
+    }
+  }
 
   submitForm = e => {
     e.preventDefault();
@@ -49,10 +66,31 @@ class AddPitch extends Component {
             value={this.state.description}>
           </textarea>
         </div>
+        <div className="field">
+          <label>Client:</label>
+          <select onChange={ e => this.setState({ client: e.target.value })}>
+            <option>Select client</option>
+            { this.displayClients() }
+          </select>
+        </div>
         <button>+</button>
       </form>
     )
   }
 }
 
-export default graphql(addPitchMutation, { name: "addPitchMutation"})(AddPitch);
+export default compose(
+  graphql(getClientsQuery, { 
+    name: "getClientsQuery",
+    options: (props) => {
+      if(props.user) {
+        return { 
+          variables: {
+            id: props.user.id,
+          } 
+        }
+      }
+    },
+  }),
+  graphql(addPitchMutation, { name: "addPitchMutation"}),
+)(AddPitch);
