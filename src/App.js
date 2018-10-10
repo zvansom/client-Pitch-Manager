@@ -12,6 +12,7 @@ import Home from './Routes/Home';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
 import Pitches from './components/Pitches';
+import Clients from './components/Clients';
 import { FourOhFour } from './Routes/FourOhFour';
 
 import Navbar from './components/Navbar';
@@ -99,13 +100,13 @@ class App extends Component {
                     <Pitches
                       user={this.state.user}
                   /> )} />
-                {/* <ProtectedRoute
-                  path="/pitch/new"
+                <ProtectedRoute
+                  path="/clients"
                   authenticated={this.state.isAuthenticated} 
                   component={() => (
-                    <AddPitch
+                    <Clients
                       user={this.state.user}
-                  /> )} /> */}
+                  /> )} />
                 <Route component={FourOhFour} />
               </Switch>
             </div>
