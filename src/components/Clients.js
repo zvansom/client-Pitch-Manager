@@ -42,6 +42,7 @@ class Clients extends Component {
               <Portal>
                 <Modal on={on} toggle={toggle}>
                 <AddClient 
+                  toggle={toggle}
                   refetch={this.props.data.refetch} 
                   user={this.props.user} />
                 </Modal>

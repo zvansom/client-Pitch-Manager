@@ -15,7 +15,7 @@ class AddClient extends Component {
   submitForm = e => {
     e.preventDefault();
     const { name, editor, email } = this.state;
-    const { user } = this.props;
+    const { user, toggle } = this.props;
     this.props.addClientMutation({
       variables: {
         user: user.id,
@@ -28,7 +28,7 @@ class AddClient extends Component {
     }).catch(error => {
       console.error(error);
     });
-    
+    toggle();
     this.setState({
       name: '',
       editor: '',
@@ -38,7 +38,7 @@ class AddClient extends Component {
 
   render() {
     return (
-      <form onSubmit={this.submitForm}>
+      <form className="form" onSubmit={this.submitForm}>
         <div className="field">
           <label>Client name:</label>
           <input 
@@ -60,7 +60,7 @@ class AddClient extends Component {
             onChange={ e => this.setState({ email: e.target.value })}
             value={this.state.email} />
         </div>
-        <button>+</button>
+        <button onClick={this.submitForm}>Add Client</button>
       </form>
     )
   }
