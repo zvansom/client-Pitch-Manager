@@ -23,6 +23,8 @@ export default class Icon extends Component {
             />
           </svg>
         );
+      default:
+        return null;
     }
   }
 }
