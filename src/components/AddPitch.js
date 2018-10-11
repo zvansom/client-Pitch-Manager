@@ -56,7 +56,7 @@ class AddPitch extends Component {
 
   render() {
     return (
-      <form className="modal form" onSubmit={this.submitForm}>
+      <form className="form" onSubmit={this.submitForm}>
         <div className="field">
           <label>Pitch title:</label>
           <input 

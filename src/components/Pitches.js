@@ -31,7 +31,7 @@ class Pitches extends Component {
                 </div>
                 <Portal>
                   <Modal on={on} toggle={toggle}>
-                    <PitchDetails />
+                    <PitchDetails pitchId={pitch.id} />
                   </Modal>
                 </Portal>
               </>
