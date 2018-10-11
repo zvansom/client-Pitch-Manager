@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import AddClient from './AddClient';
+import Toggle from './utilities/Toggle';
+import Modal from './utilities/Modal';
+import Portal from './utilities/Portal';
 
 import { getClientsQuery } from '../queries/queries';
 
@@ -28,10 +31,24 @@ class Clients extends Component {
   render() {
     return (
       <>
-        <AddClient refetch={this.props.data.refetch} user={this.props.user} />
         <ul>
           {this.displayClients()}
         </ul>
+
+        <Toggle>
+          {({on, toggle}) => (
+            <>
+              <button onClick={toggle}>Add New Client</button>
+              <Portal>
+                <Modal on={on} toggle={toggle}>
+                <AddClient 
+                  refetch={this.props.data.refetch} 
+                  user={this.props.user} />
+                </Modal>
+              </Portal>
+            </>
+          )}
+        </Toggle>
       </>
     )
   }
