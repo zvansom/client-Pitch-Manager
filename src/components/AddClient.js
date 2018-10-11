@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 
 import { addClientMutation, } from '../queries/queries'
 
+import '../styles/forms.css';
 
 class AddClient extends Component {
   state = {
