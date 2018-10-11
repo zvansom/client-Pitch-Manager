@@ -38,13 +38,8 @@ const getPitchQuery = gql`
       id
       title
       description
-      user {
-        id
+      client {
         name
-        pitches {
-          title
-          id
-        }
       }
     }
   }

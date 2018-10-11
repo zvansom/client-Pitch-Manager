@@ -33,7 +33,7 @@ class AddPitch extends Component {
   submitForm = e => {
     e.preventDefault();
     const { title, description } = this.state;
-    const { user } = this.props;
+    const { user, toggle } = this.props;
     this.props.addPitchMutation({
       variables: {
         user: user.id,
@@ -45,6 +45,8 @@ class AddPitch extends Component {
     }).catch(error => {
       console.error(error);
     });
+    
+    toggle();
     
     this.setState({
       title: '',
@@ -69,14 +71,14 @@ class AddPitch extends Component {
             value={this.state.description}>
           </textarea>
         </div>
-        <div className="field">
+        {/* <div className="field">
           <label>Client:</label>
           <select onChange={ e => this.setState({ client: e.target.value })}>
             <option>Select client</option>
-            { this.displayClients() }
-          </select>
-        </div>
-        <button>+</button>
+            {/* { this.displayClients() }
+          </select> 
+        </div> */}
+        <input type="submit" value="Save Pitch" />
       </form>
     )
   }

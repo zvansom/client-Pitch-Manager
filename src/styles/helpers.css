@@ -6,14 +6,6 @@
   font-weight: 600;
 }
 
-.modal {
-  z-index: 5;
-  position: absolute;
-  top: 100px;
-  left: 25%;
-  width: 50%;
-}
-
 .inner {
   max-width:900px;
   margin: 0 auto;
