@@ -22,10 +22,10 @@ class Pitches extends Component {
     } else {
       return data.user.pitches.map(pitch => {
         return(
-          <Toggle>
+          <Toggle key={pitch.id}>
             {({on, toggle}) => (
               <>
-                <div className="pitch" key={ pitch.id } onClick={toggle}>
+                <div className="pitch" onClick={toggle}>
                   <h2 className="pitch__title">{pitch.title}</h2>
                   <p className="pitch__status">{pitch.status}</p>
                 </div>
