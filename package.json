@@ -1,5 +1,5 @@
 {
-  "name": "client-pitch-manager",
+  "name": "pitch-manager",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,11 +7,14 @@
     "axios": "^0.18.0",
     "dotenv": "^6.0.0",
     "graphql": "^14.0.2",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.5.2",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.4"
+    "react-scripts": "2.0.4",
+    "react-spring": "^5.9.2",
+    "styled-components": "^3.4.10"
   },
   "scripts": {
     "start": "react-scripts start",

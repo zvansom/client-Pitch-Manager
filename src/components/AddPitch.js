@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 
-import { getUsersQuery, addPitchMutation, getPitchesQuery } from '../queries/queries'
+import { 
+  addPitchMutation,
+  getClientsQuery,
+ } from '../queries/queries';
 
+ import '../styles/forms.css';
+import '../styles/helpers.css';
 
 class AddPitch extends Component {
   state = {
     title: '',
     description: '',
-    user: '',
   };
 
-  displayUsers() {
-    const data = this.props.getUsersQuery;
+  displayClients() {
+    const data = this.props.getClientsQuery;
     if(data.loading) {
       return(
-        <option disabled>Loading Users...</option>
+        <option disabled>Loading Clients...</option>
       );
     } else {
-      return data.users.map(user => {
+      return data.user.clients.map(client => {
         return(
-          <option key={user.id} value={user.id}>{user.name}</option>
+          <option key={client.id} value={client.id}>{client.name}</option>
         );
       });
     }
@@ -28,26 +32,31 @@ class AddPitch extends Component {
 
   submitForm = e => {
     e.preventDefault();
-    const { title, description, user } = this.state;
+    const { title, description } = this.state;
+    const { user, toggle } = this.props;
     this.props.addPitchMutation({
       variables: {
-        user,
+        user: user.id,
         title,
         description,
       },
-      refetchQueries: [{ query: getPitchesQuery },]
+    }).then(({ data }) => {
+      this.props.refetch();
+    }).catch(error => {
+      console.error(error);
     });
-
+    
+    toggle();
+    
     this.setState({
       title: '',
       description: '',
-      user: '',
     });
   }
 
   render() {
     return (
-      <form id="add-pitch" onSubmit={this.submitForm}>
+      <form className="form" onSubmit={this.submitForm}>
         <div className="field">
           <label>Pitch title:</label>
           <input 
@@ -62,20 +71,31 @@ class AddPitch extends Component {
             value={this.state.description}>
           </textarea>
         </div>
-        <div className="field">
-          <label>User:</label>
-          <select onChange={ e => this.setState({ user: e.target.value })}>
-            <option>Select user</option>
-            { this.displayUsers() }
-          </select>
-        </div>
-        <button>+</button>
+        {/* <div className="field">
+          <label>Client:</label>
+          <select onChange={ e => this.setState({ client: e.target.value })}>
+            <option>Select client</option>
+            {/* { this.displayClients() }
+          </select> 
+        </div> */}
+        <input type="submit" value="Save Pitch" />
       </form>
     )
   }
 }
 
 export default compose(
-  graphql(getUsersQuery, { name: "getUsersQuery"}),
+  graphql(getClientsQuery, { 
+    name: "getClientsQuery",
+    options: (props) => {
+      if(props.user) {
+        return { 
+          variables: {
+            id: props.user.id,
+          } 
+        }
+      }
+    },
+  }),
   graphql(addPitchMutation, { name: "addPitchMutation"}),
 )(AddPitch);

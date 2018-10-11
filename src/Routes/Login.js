@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import { SERVER_URL } from '../variables';
@@ -11,24 +12,28 @@ export default class Login extends Component {
     password: '',
   }
 
-loginUser = async e => {
-  e.preventDefault();
-  const { email, password } = this.state;
-  const response = await axios.post(`${SERVER_URL}/login`, {
-    email,
-    password,
-  });
-  if(response.data.errors.length) {
-    response.data.errors.forEach(error => console.error(error));
-    return;
+  loginUser = async e => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${SERVER_URL}/login`, this.state);
+      localStorage.setItem('mernToken', response.data.token);
+      this.setState({
+        email: '',
+        password: '',
+      });
+      this.props.updateUser();
+    }
+    catch(err) {
+      // TODO: Pass message to client side with error message.
+      console.error(err);
+    }
   }
-  this.setState({
-    email: '',
-    password: '',
-  });
-}
 
   render() {
+    if(this.props.authenticated) {
+      return <Redirect to="/pitches" />
+    }
+
     return (
       <form className="form" onSubmit={this.loginUser}>
         <h2>Login</h2>

@@ -12,13 +12,6 @@ class PitchDetails extends Component {
         <>
           <h2>{ pitch.title }</h2>
           <p>{ pitch.description }</p>
-          <p>{ pitch.user.name }</p>
-          <p>All pitches by user</p>
-          <ul className="other-pitches">
-            {pitch.user.pitches.map(item => {
-              return <li key={item.id}>{item.title}</li>
-            })}
-          </ul>
         </>
       )
     } else {
