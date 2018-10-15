@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-const getPitchesQuery = gql`
+const getUsersPitchesQuery = gql`
 query($id:ID) {
   user(id:$id) {
     pitches {
@@ -64,7 +64,7 @@ const addClientMutation = gql`
 `;
 
 export { 
-  getPitchesQuery, 
+  getUsersPitchesQuery, 
   getClientsQuery, 
   getUsersQuery, 
   getPitchQuery, 

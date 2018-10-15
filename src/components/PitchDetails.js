@@ -4,7 +4,6 @@ import { graphql } from 'react-apollo';
 import { getPitchQuery } from '../queries/queries';
 
 class PitchDetails extends Component {
-
   displayPitchDetails() {
     const { pitch } = this.props.data;
     if(pitch) {
@@ -16,7 +15,7 @@ class PitchDetails extends Component {
       )
     } else {
       return(
-        <p>No pitch selected...</p>
+        <p>Loading pitch...</p>
       )
     }
   }
