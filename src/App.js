@@ -75,6 +75,7 @@ class App extends Component {
               authenticated={this.state.isAuthenticated}
             />
             <div className="inner">
+              {/* Put flash messages here */}
               <Switch>
                 <Route 
                   exact path="/" 

@@ -15,8 +15,10 @@ export default class Register extends Component {
   
   submitForm = async e => {
     e.preventDefault();
+    // Put loading indicator here
     try {
-      const response = await axios.post(`${SERVER_URL}/register`, this.state)
+      const response = await axios.post(`${SERVER_URL}/register`, this.state);
+      console.log('response', response);
       localStorage.setItem('mernToken', response.data.token);
       this.setState({
         name: '',

@@ -27,7 +27,11 @@ class Pitches extends Component {
                   </div>
                   <Portal>
                     <Modal on={on} toggle={toggle}>
-                      <PitchDetails pitchId={pitch.id} />
+                      <PitchDetails 
+                        pitchId={pitch.id} 
+                        toggle={toggle} 
+                        refetch={this.props.data.refetch}
+                      />
                     </Modal>
                   </Portal>
                 </>
@@ -43,9 +47,6 @@ class Pitches extends Component {
   render() {
     return (
       <>
-        <div className="pitch-container">
-          {this.displayPitches()}
-        </div>
 
         <Toggle>
           {({on, toggle}) => (
@@ -63,6 +64,9 @@ class Pitches extends Component {
             </>
           )}
         </Toggle>
+        <div className="pitch-container">
+          {this.displayPitches()}
+        </div>
       </>
     )
   }

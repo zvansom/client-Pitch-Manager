@@ -46,8 +46,8 @@ const getPitchQuery = gql`
 `;
 
 const addPitchMutation = gql`
-  mutation($title:String!, $description:String, $user:ID!){
-    addPitch(title: $title, description: $description, user: $user) {
+  mutation($title:String!, $description:String, $user:ID!, $client:ID){
+    addPitch(title: $title, description: $description, user: $user, client: $client) {
       title
       id
     }
@@ -63,7 +63,16 @@ const addClientMutation = gql`
   }
 `;
 
+const deletePitchMutation = gql`
+  mutation($id:ID!) {
+  deletePitch(id: $id) {
+    id
+  }
+}
+`;
+
 export { 
+  deletePitchMutation,
   getUsersPitchesQuery, 
   getClientsQuery, 
   getUsersQuery, 

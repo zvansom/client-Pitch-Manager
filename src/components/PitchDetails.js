@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
-import { getPitchQuery } from '../queries/queries';
+import { 
+  getPitchQuery,
+  deletePitchMutation,
+} from '../queries/queries';
 
 class PitchDetails extends Component {
   displayPitchDetails() {
@@ -20,19 +23,42 @@ class PitchDetails extends Component {
     }
   }
 
+  handleDelete() {
+    console.log('delete pressed');
+    this.props.deletePitchMutation()
+      .then( () => this.props.refetch() )
+      .catch( err => console.error(err) );
+    this.props.toggle();
+  }
+  
   render() {
     return (
       <div id="pitch-details">
+        <button onClick={() => this.handleDelete()}>Delete</button>
         {this.displayPitchDetails()}
       </div>
     )
   }
 }
 
-export default graphql(getPitchQuery, {
-  options: (props) => {
-    return { variables: {
-      id: props.pitchId,
-    }}
-  }
-})(PitchDetails)
+export default compose(
+  graphql(getPitchQuery, {
+    options: (props) => {
+      return { 
+        variables: {
+          id: props.pitchId,
+        },
+      };
+    },
+  }),
+  graphql(deletePitchMutation, {
+    name: "deletePitchMutation",
+    options: (props) => {
+      return {
+        variables: {
+          id: props.pitchId,
+        },
+      };
+    },
+  }),
+)(PitchDetails)
