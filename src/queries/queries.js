@@ -24,15 +24,6 @@ query($id:ID) {
 }
 `;
 
-const getUsersQuery = gql`
-  {
-    users {
-      name
-      id
-    }
-  }
-`;
-
 const getPitchQuery = gql`
   query($id:ID) {
     pitch(id:$id) {
@@ -46,9 +37,31 @@ const getPitchQuery = gql`
   }
 `;
 
+const getClientQuery = gql`
+  query($id:ID) {
+    client(id:$id) {
+      id
+      name
+      editor
+    }
+  }
+`;
+
 const addPitchMutation = gql`
-  mutation($title:String!, $description:String, $user:ID!, $client:ID, $status:String){
-    addPitch(title: $title, description: $description, user: $user, client: $client, status: $status) {
+  mutation(
+    $title:String!, 
+    $description:String, 
+    $user:ID!, 
+    $client:ID, 
+    $status:String
+  ) {
+    addPitch(
+      title: $title, 
+      description: $description, 
+      user: $user, 
+      client: $client, 
+      status: $status
+    ) {
       title
       id
     }
@@ -79,18 +92,27 @@ const addClientMutation = gql`
 
 const deletePitchMutation = gql`
   mutation($id:ID!) {
-  deletePitch(id: $id) {
-    id
+    deletePitch(id: $id) {
+      id
+    }
   }
-}
+`;
+
+const deleteClientMutation = gql`
+  mutation($id:ID!) {
+    deleteClient(id: $id) {
+      id
+    }
+  }
 `;
 
 export { 
   deletePitchMutation,
+  deleteClientMutation,
   getUsersPitchesQuery, 
   getClientsQuery, 
-  getUsersQuery, 
   getPitchQuery, 
+  getClientQuery, 
   addPitchMutation,
   addClientMutation, 
 };

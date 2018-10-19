@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import AddClient from './AddClient';
+import ClientDetails from './ClientDetails';
 import Toggle from './utilities/Toggle';
 import Modal from './utilities/Modal';
 import Portal from './utilities/Portal';
@@ -10,10 +11,6 @@ import { getClientsQuery } from '../queries/queries';
 import '../styles/pitch-list.css'
 
 class Clients extends Component {
-  state = {
-    selected: null,
-  }
-
   displayClients() {
     const { data } = this.props;
     if(data.loading) {
@@ -21,9 +18,25 @@ class Clients extends Component {
     } else {
       return data.user.clients.map(client => {
         return(
-          <li key={ client.id } onClick={e => this.setState({ selected: client.id }) }>
-            {client.name} - {client.editor}
-          </li>
+          <Toggle key={client.id}>
+            {({on, toggle}) => (
+              <>
+                <div className="pitch" onClick={toggle}>
+                  <h2 className="pitch__title">{client.name}</h2>
+                  <p className="pitch__status">{client.editor}</p>
+                </div>
+                <Portal>
+                  <Modal on={on} toggle={toggle}>
+                    <ClientDetails 
+                      clientId={client.id} 
+                      toggle={toggle} 
+                      refetch={this.props.data.refetch}
+                    />
+                  </Modal>
+                </Portal>
+              </>
+            )}
+          </Toggle>
         );
       });
     }
