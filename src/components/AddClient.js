@@ -10,11 +10,13 @@ class AddClient extends Component {
     name: '',
     editor: '',
     email: '',
+    editingNotes: '',
+    invoicingNotes: '',
   };
 
   submitForm = e => {
     e.preventDefault();
-    const { name, editor, email } = this.state;
+    const { name, editor, email, editingNotes, invoicingNotes } = this.state;
     const { user, toggle } = this.props;
     this.props.addClientMutation({
       variables: {
@@ -22,6 +24,8 @@ class AddClient extends Component {
         name,
         editor,
         email,
+        editingNotes,
+        invoicingNotes,
       },
     }).then(({ data }) => {
       this.props.refetch();
@@ -33,6 +37,8 @@ class AddClient extends Component {
       name: '',
       editor: '',
       email: '',
+      editingNotes: '',
+      invoicingNotes: '',
     });
   }
 
@@ -60,7 +66,21 @@ class AddClient extends Component {
             onChange={ e => this.setState({ email: e.target.value })}
             value={this.state.email} />
         </div>
-        <button onClick={this.submitForm}>Add Client</button>
+        <div className="field">
+          <label>Editing Notes:</label>
+          <textarea 
+            onChange={ e => this.setState({ editingNotes: e.target.value })}
+            value={this.state.editingNotes}>
+          </textarea>
+        </div>
+        <div className="field">
+          <label>Invoicing notes:</label>
+          <textarea 
+            onChange={ e => this.setState({ invoicingNotes: e.target.value })}
+            value={this.state.invoicingNotes}>
+          </textarea> 
+        </div>
+        <input type="submit" onClick={this.submitForm} value="Add Client" />
       </form>
     )
   }

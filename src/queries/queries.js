@@ -55,9 +55,22 @@ const addPitchMutation = gql`
 `;
 
 const addClientMutation = gql`
-  mutation($name:String!, $editor:String, $email:String, $user:ID!){
-    addClient(name: $name, editor: $editor, email: $email, user: $user) {
-      name
+  mutation(
+    $name:String!, 
+    $editor:String, 
+    $email:String, 
+    $user:ID!, 
+    $editingNotes:String, 
+    $invoicingNotes: String
+  ){
+    addClient(
+      name: $name, 
+      editor: $editor, 
+      email: $email, 
+      user: $user, 
+      editingNotes: $editingNotes, 
+      invoicingNotes: $invoicingNotes
+    ) {
       id
     }
   }
