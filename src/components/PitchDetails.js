@@ -24,7 +24,6 @@ class PitchDetails extends Component {
   }
 
   handleDelete() {
-    console.log('delete pressed');
     this.props.deletePitchMutation()
       .then( () => this.props.refetch() )
       .catch( err => console.error(err) );

@@ -6,13 +6,14 @@ import {
   getClientsQuery,
  } from '../queries/queries';
 
- import '../styles/forms.css';
+import '../styles/forms.css';
 import '../styles/helpers.css';
 
 class AddPitch extends Component {
   state = {
     title: '',
     description: '',
+    client: null,
   };
 
   displayClients() {
@@ -32,13 +33,15 @@ class AddPitch extends Component {
 
   submitForm = e => {
     e.preventDefault();
-    const { title, description } = this.state;
+    const { title, description, client } = this.state;
     const { user, toggle } = this.props;
     this.props.addPitchMutation({
       variables: {
         user: user.id,
         title,
         description,
+        client,
+        status: client ? 'In Review' : 'Not Pitched',
       },
     }).then(({ data }) => {
       this.props.refetch();
@@ -51,6 +54,7 @@ class AddPitch extends Component {
     this.setState({
       title: '',
       description: '',
+      client: '',
     });
   }
 
@@ -71,13 +75,13 @@ class AddPitch extends Component {
             value={this.state.description}>
           </textarea>
         </div>
-        {/* <div className="field">
+        <div className="field">
           <label>Client:</label>
           <select onChange={ e => this.setState({ client: e.target.value })}>
             <option>Select client</option>
-            {/* { this.displayClients() }
+            { this.displayClients() }
           </select> 
-        </div> */}
+        </div>
         <input type="submit" value="Save Pitch" />
       </form>
     )

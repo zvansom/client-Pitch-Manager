@@ -31,10 +31,6 @@ class Clients extends Component {
   render() {
     return (
       <>
-        <ul>
-          {this.displayClients()}
-        </ul>
-
         <Toggle>
           {({on, toggle}) => (
             <>
@@ -50,6 +46,10 @@ class Clients extends Component {
             </>
           )}
         </Toggle>
+
+        <ul>
+          {this.displayClients()}
+        </ul>
       </>
     )
   }
