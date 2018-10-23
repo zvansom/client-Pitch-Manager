@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+
+// Import Components
 import AddPitch from './AddPitch';
 import PitchDetails from './PitchDetails';
 import Toggle from './utilities/Toggle';
 import Portal from './utilities/Portal';
 import Modal from './utilities/Modal';
+
+// Import GraphQL queries
 import { getUsersPitchesQuery } from '../queries/queries';
 
+// Import CSS
 import '../styles/pitch-list.css'
 
 class Pitches extends Component {
   displayPitches() {
     const { data } = this.props;
+    // Wait for Apollo to return the user's pitches
     if(data.loading) {
       return ( <div>Loading pitches...</div>);
     } else {
+      // Apollo loading finished
+      // Check if the user has pitches
       if (data.user.pitches.length > 0) {
+        // Generate pitch index
         return data.user.pitches.map(pitch => {
           return(
             <Toggle key={pitch.id}>
@@ -47,7 +56,6 @@ class Pitches extends Component {
   render() {
     return (
       <>
-
         <Toggle>
           {({on, toggle}) => (
             <>
