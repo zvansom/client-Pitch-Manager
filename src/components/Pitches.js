@@ -3,7 +3,6 @@ import { graphql } from 'react-apollo';
 
 // Import Components
 import AddPitch from './AddPitch';
-import PitchDetails from './PitchDetails';
 import Toggle from './utilities/Toggle';
 import Portal from './utilities/Portal';
 import Modal from './utilities/Modal';

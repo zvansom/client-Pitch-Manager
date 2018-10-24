@@ -14,6 +14,16 @@ class AddClient extends Component {
     invoicingNotes: '',
   };
 
+  componentDidMount() {
+    if(this.props.client) {
+      const { name, editor } = this.props.client
+      this.setState({
+        name,
+        editor,
+      })
+    }
+  }
+
   submitForm = e => {
     e.preventDefault();
     const { name, editor, email, editingNotes, invoicingNotes } = this.state;
