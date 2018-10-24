@@ -4,6 +4,7 @@ import { graphql, compose } from 'react-apollo';
 import { 
   addPitchMutation,
   getClientsQuery,
+  getPitchQuery,
  } from '../queries/queries';
 
 import '../styles/forms.css';
@@ -15,6 +16,15 @@ class AddPitch extends Component {
     description: '',
     client: null,
   };
+
+  componentDidMount() {
+    if(this.props.pitch) {
+      this.setState({
+        title: this.props.pitch.title,
+        description: this.props.pitch.description,
+      })
+    }
+  }
 
   displayClients() {
     const data = this.props.getClientsQuery;
@@ -89,6 +99,16 @@ class AddPitch extends Component {
 }
 
 export default compose(
+  graphql(getPitchQuery, { 
+    name: "getPitchQuery",
+    options: (props) => {
+      return { 
+        variables: {
+          id: props.pitchId,
+        } 
+      }
+    },
+  }),
   graphql(getClientsQuery, { 
     name: "getClientsQuery",
     options: (props) => {

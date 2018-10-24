@@ -5,6 +5,11 @@ const getUsersPitchesQuery = gql`
     user(id:$id) {
       pitches {
         title
+        description
+        client {
+          name
+          id
+        }
         status
         id
       }

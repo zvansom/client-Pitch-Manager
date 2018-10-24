@@ -36,8 +36,9 @@ class Pitches extends Component {
                   </div>
                   <Portal>
                     <Modal on={on} toggle={toggle}>
-                      <PitchDetails 
-                        pitchId={pitch.id} 
+                      <AddPitch
+                        user={this.props.user}
+                        pitch={pitch} 
                         toggle={toggle} 
                         refetch={this.props.data.refetch}
                       />
