@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { graphql, Query } from 'react-apollo';
+import React from 'react';
+import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
 // Import Components
@@ -28,62 +28,61 @@ const getUsersPitchesQuery = gql`
   }
 `;
 
-class Pitches extends Component {
-  render() {
-    const { id } = this.props.user;
-    return (
-      <>
-        <Toggle>
-          {({on, toggle}) => (
-            <>
-              <button onClick={toggle}>Add New Pitch</button>
-              <Portal>
-                <Modal on={on} toggle={toggle}>
-                  <AddPitch 
-                    user={this.props.user} 
-                    toggle={toggle}
-                  />
-                </Modal>
-              </Portal>
-            </>
-          )}
-        </Toggle>
-        <Query query={getUsersPitchesQuery} variables={{id}}>
-            {({ loading, error, data }) => {
-              if (loading) return <p>Loading...</p>;
-              if (error) return <p> Error: {error}</p>;
-              if (data.user.pitches.length) {
-                return data.user.pitches.map(pitch => {
-                  return(
-                    <Toggle key={pitch.id}>
-                      {({on, toggle}) => (
-                        <>
-                          <div className="pitch" onClick={toggle}>
-                            <h2 className="pitch__title">{pitch.title}</h2>
-                            <p className="pitch__status">{pitch.status}</p>
-                          </div>
-                          <Portal>
-                            <Modal on={on} toggle={toggle}>
-                              <AddPitch
-                                user={this.props.user}
-                                pitch={pitch} 
-                                toggle={toggle} 
-                              />
-                            </Modal>
-                          </Portal>
-                        </>
-                      )}
-                    </Toggle>
-                  );
-                });
-              } else {
-                return <h2>You dont have any pitches.  Better write some!</h2>
-              }
-            }}
-        </Query>
-      </>
-    )
-  }
+const Pitches = ({ user }) => {
+  const { id } = user;
+  return (
+    <>
+      <Toggle>
+        {({on, toggle}) => (
+          <>
+            <button onClick={toggle}>Add New Pitch</button>
+            <Portal>
+              <Modal on={on} toggle={toggle}>
+                <AddPitch 
+                  user={user} 
+                  toggle={toggle}
+                />
+              </Modal>
+            </Portal>
+          </>
+        )}
+      </Toggle>
+      <Query query={getUsersPitchesQuery} variables={{id}}>
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p> Error: {error}</p>;
+          if (data.user.pitches.length) {
+            return data.user.pitches.map(pitch => {
+              return(
+                <Toggle key={pitch.id}>
+                  {({on, toggle}) => (
+                    <>
+                      <div className="pitch" onClick={toggle}>
+                        <h2 className="pitch__title">{pitch.title}</h2>
+                        <p className="pitch__status">{pitch.status}</p>
+                      </div>
+                      <Portal>
+                        <Modal on={on} toggle={toggle}>
+                          <AddPitch
+                            user={user}
+                            pitch={pitch} 
+                            toggle={toggle} 
+                          />
+                        </Modal>
+                      </Portal>
+                    </>
+                  )}
+                </Toggle>
+              );
+            });
+          } else {
+            return <h2>You dont have any pitches.  Better write some!</h2>
+          }
+        }}
+      </Query>
+    </>
+  )
 }
+
 
 export default Pitches;
