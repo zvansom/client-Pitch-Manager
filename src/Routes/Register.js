@@ -8,8 +8,8 @@ import '../styles/forms.css';
 
 export default class Register extends Component {
   static propTypes = {
-    updateUser: PropTypes.func.isRequired,
     authenticated: PropTypes.bool.isRequired,
+    updateUser: PropTypes.func.isRequired,
   }
   
   state = {

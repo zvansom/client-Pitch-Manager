@@ -27,6 +27,6 @@ export const AuthButton = withRouter(({ logout, authenticated }) => {
 });
 
 AuthButton.propTypes = {
-  authenticated: PropTypes.bool,
-  logout: PropTypes.func,
+  authenticated: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
 }

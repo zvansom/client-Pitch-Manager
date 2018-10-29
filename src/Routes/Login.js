@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { SERVER_URL } from '../variables';
 
 import '../styles/forms.css';
 
 export default class Login extends Component {
+  static propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    updateUser: PropTypes.func.isRequired,
+  }
+
   state = {
     email: '',
     password: '',

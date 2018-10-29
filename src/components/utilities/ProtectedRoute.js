@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 import {
   Route,
   Redirect,
 } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 export const ProtectedRoute = ({component: Component, authenticated, ...rest }) => (
   <Route
@@ -18,3 +19,7 @@ export const ProtectedRoute = ({component: Component, authenticated, ...rest }) 
     }
   />
 );
+
+ProtectedRoute.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+}
