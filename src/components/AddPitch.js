@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
+import { graphql, Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 
 import { 
   addPitchMutation,
-  getClientsQuery,
-  getPitchQuery,
+  getClientsQuery
  } from '../queries/queries';
 
 import '../styles/forms.css';
@@ -25,30 +24,6 @@ class AddPitch extends Component {
     description: '',
     client: null,
   };
-
-  componentDidMount() {
-    if(this.props.pitch) {
-      this.setState({
-        title: this.props.pitch.title,
-        description: this.props.pitch.description,
-      })
-    }
-  }
-
-  displayClients() {
-    const data = this.props.getClientsQuery;
-    if(data.loading) {
-      return(
-        <option disabled>Loading Clients...</option>
-      );
-    } else {
-      return data.user.clients.map(client => {
-        return(
-          <option key={client.id} value={client.id}>{client.name}</option>
-        );
-      });
-    }
-  }
 
   submitForm = e => {
     e.preventDefault();
@@ -78,6 +53,7 @@ class AddPitch extends Component {
   }
 
   render() {
+    const { id } = this.props.user;
     return (
       <form className="form" onSubmit={this.submitForm}>
         <div className="field">
@@ -98,7 +74,21 @@ class AddPitch extends Component {
           <label>Client:</label>
           <select onChange={ e => this.setState({ client: e.target.value })}>
             <option>Select client</option>
-            { this.displayClients() }
+            <Query query={getClientsQuery} variables={{id}}>
+              {({ loading, error, data }) => {
+                if(loading) return <option disabled>Loading Clients...</option>;
+                if(error) return <option>Oops.  Something went wrong.</option>;
+                if(data.user.clients.length){
+                  return data.user.clients.map(client => {
+                    return(
+                      <option key={client.id} value={client.id}>{client.name}</option>
+                    );
+                  });
+                } else {
+                  return <option disabled>You don't have any clients</option>
+                }
+              }}
+            </Query>
           </select> 
         </div>
         <input type="submit" value="Save Pitch" />
@@ -107,28 +97,4 @@ class AddPitch extends Component {
   }
 }
 
-export default compose(
-  graphql(getPitchQuery, { 
-    name: "getPitchQuery",
-    options: (props) => {
-      return { 
-        variables: {
-          id: props.pitchId,
-        } 
-      }
-    },
-  }),
-  graphql(getClientsQuery, { 
-    name: "getClientsQuery",
-    options: (props) => {
-      if(props.user) {
-        return { 
-          variables: {
-            id: props.user.id,
-          } 
-        }
-      }
-    },
-  }),
-  graphql(addPitchMutation, { name: "addPitchMutation"}),
-)(AddPitch);
+export default graphql(addPitchMutation, { name: "addPitchMutation"})(AddPitch);
