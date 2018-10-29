@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Redirect, } from 'react-router-dom';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { SERVER_URL } from '../variables';
 
 import '../styles/forms.css';
 
 export default class Register extends Component {
+  static propTypes = {
+    updateUser: PropTypes.func.isRequired,
+    authenticated: PropTypes.bool.isRequired,
+  }
+  
   state = {
     name: '',
     email: '',
