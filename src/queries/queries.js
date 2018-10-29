@@ -1,5 +1,22 @@
 import { gql } from 'apollo-boost';
 
+const getUsersPitchesQuery = gql`
+  query($id: ID) {
+    user(id:$id) {
+      pitches {
+        title
+        description
+        client {
+          name
+          id
+        }
+        status
+        id
+      }
+    }
+  }
+`;
+
 const getClientsQuery = gql`
 query($id:ID) {
   user(id:$id) {
@@ -97,6 +114,7 @@ const deleteClientMutation = gql`
 export { 
   deletePitchMutation,
   deleteClientMutation,
+  getUsersPitchesQuery,
   getClientsQuery, 
   getPitchQuery, 
   getClientQuery, 
