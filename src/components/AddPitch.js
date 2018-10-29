@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
+import PropTypes from 'prop-types';
 
 import { 
   addPitchMutation,
@@ -11,6 +12,14 @@ import '../styles/forms.css';
 import '../styles/helpers.css';
 
 class AddPitch extends Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    }),
+  };
+  
   state = {
     title: '',
     description: '',
