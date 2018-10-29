@@ -1,18 +1,19 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import PropTypes from 'prop-types';
 
 // Import Components
 import AddPitch from './AddPitch';
-import Toggle from './utilities/Toggle';
-import Portal from './utilities/Portal';
 import Modal from './utilities/Modal';
+import Portal from './utilities/Portal';
+import Toggle from './utilities/Toggle';
 
 // Import CSS
 import '../styles/pitch-list.css'
 
 const getUsersPitchesQuery = gql`
-  query Pitches($id: ID) {
+  query($id: ID) {
     user(id:$id) {
       pitches {
         title
@@ -63,6 +64,7 @@ const Pitches = ({ user }) => {
                       </div>
                       <Portal>
                         <Modal on={on} toggle={toggle}>
+                        {/* Make a new 'EditPitch' component */}
                           <AddPitch
                             user={user}
                             pitch={pitch} 
@@ -84,5 +86,12 @@ const Pitches = ({ user }) => {
   )
 }
 
+Pitches.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }),
+};
 
 export default Pitches;

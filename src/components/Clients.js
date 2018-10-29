@@ -1,79 +1,89 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import React from 'react';
+import { Query } from 'react-apollo';
+import { gql } from 'apollo-boost';
+import PropTypes from 'prop-types';
+
+// Import Components
 import AddClient from './AddClient';
-import Toggle from './utilities/Toggle';
 import Modal from './utilities/Modal';
 import Portal from './utilities/Portal';
-
-import { getClientsQuery } from '../queries/queries';
+import Toggle from './utilities/Toggle';
 
 import '../styles/pitch-list.css'
 
-class Clients extends Component {
-  displayClients() {
-    const { data } = this.props;
-    if(data.loading) {
-      return ( <div>Loading clients...</div>);
-    } else {
-      return data.user.clients.map(client => {
-        return(
-          <Toggle key={client.id}>
-            {({on, toggle}) => (
-              <>
-                <div className="pitch" onClick={toggle}>
-                  <h2 className="pitch__title">{client.name}</h2>
-                  <p className="pitch__status">{client.editor}</p>
-                </div>
-                <Portal>
-                  <Modal on={on} toggle={toggle}>
-                    <AddClient
-                      client={client} 
-                      user={this.props.user}
-                      toggle={toggle} 
-                      refetch={this.props.data.refetch}
-                    />
-                  </Modal>
-                </Portal>
-              </>
-            )}
-          </Toggle>
-        );
-      });
-    }
-  }
-  render() {
-    return (
-      <>
-        <Toggle>
-          {({on, toggle}) => (
-            <>
-              <button onClick={toggle}>Add New Client</button>
-              <Portal>
-                <Modal on={on} toggle={toggle}>
-                <AddClient 
-                  toggle={toggle}
-                  refetch={this.props.data.refetch} 
-                  user={this.props.user} />
-                </Modal>
-              </Portal>
-            </>
-          )}
-        </Toggle>
-
-        <ul>
-          {this.displayClients()}
-        </ul>
-      </>
-    )
-  }
-}
-
-export default graphql(getClientsQuery, {
-    options: (props) => {
-      if(props.user) {
-        return { variables: {
-          id: props.user.id,
-        }}
+// GraphQL Query
+const getUsersClientsQuery = gql`
+  query($id:ID) {
+    user(id:$id) {
+      clients {
+        name
+        editor
+        id
       }
     }
-  })(Clients)
+  }
+`;
+
+const Clients = ({ user }) => {
+  const { id } = user;
+  return (
+    <>
+      <Toggle>
+        {({on, toggle}) => (
+          <>
+            <button onClick={toggle}>Add New Client</button>
+            <Portal>
+              <Modal on={on} toggle={toggle}>
+              <AddClient 
+                toggle={toggle}
+                user={user} />
+              </Modal>
+            </Portal>
+          </>
+        )}
+      </Toggle>
+      <Query query={getUsersClientsQuery} variables={{id}}>
+        {({ loading, error, data }) => {
+          if(loading) return <p>Loading clients...</p>;
+          if(error) return <p>Something went wrong.  Please try again.</p>
+          if (data.user.clients.length) {
+            return data.user.clients.map(client => {
+              return(
+                <Toggle key={client.id}>
+                  {({on, toggle}) => (
+                    <>
+                      <div className="pitch" onClick={toggle}>
+                        <h2 className="pitch__title">{client.name}</h2>
+                        <p className="pitch__status">{client.editor}</p>
+                      </div>
+                      <Portal>
+                        <Modal on={on} toggle={toggle}>
+                        {/* Need an 'Edit Client' component */}
+                          <AddClient
+                            client={client} 
+                            user={user}
+                            toggle={toggle} 
+                          />
+                        </Modal>
+                      </Portal>
+                    </>
+                  )}
+                </Toggle>
+              );
+            });
+          }
+        }}
+      </Query>
+    </>
+  )
+}
+
+Clients.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }),
+}
+
+export default Clients;
