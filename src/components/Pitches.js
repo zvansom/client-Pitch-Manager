@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 // Import Components
 import AddPitch from './AddPitch';
+import UpdatePitch from './UpdatePitch';
 import Modal from './utilities/Modal';
 import Portal from './utilities/Portal';
 import Toggle from './utilities/Toggle';
@@ -64,10 +65,9 @@ const Pitches = ({ user }) => {
                       </div>
                       <Portal>
                         <Modal on={on} toggle={toggle}>
-                        {/* Make a new 'EditPitch' component */}
-                          <AddPitch
+                          <UpdatePitch
                             user={user}
-                            pitch={pitch} 
+                            pitchId={pitch.id} 
                             toggle={toggle} 
                           />
                         </Modal>
