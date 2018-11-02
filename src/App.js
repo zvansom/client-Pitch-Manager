@@ -11,7 +11,8 @@ import { SERVER_URL } from './variables';
 import Home from './Routes/Home';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
-import Pitches from './components/Pitches';
+import Pitches from './Routes/Pitches';
+import NewPitch from './Routes/NewPitch';
 import Clients from './components/Clients';
 import { FourOhFour } from './Routes/FourOhFour';
 
@@ -99,6 +100,13 @@ class App extends Component {
                   authenticated={this.state.isAuthenticated}
                   component={() => (
                     <Pitches
+                      user={this.state.user}
+                  /> )} />
+                <ProtectedRoute
+                  path="/pitch/new"
+                  authenticated={this.state.isAuthenticated}
+                  component={() => (
+                    <NewPitch
                       user={this.state.user}
                   /> )} />
                 <ProtectedRoute

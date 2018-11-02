@@ -4,11 +4,11 @@ import { gql } from 'apollo-boost';
 import PropTypes from 'prop-types';
 
 // Import Components
-import AddPitch from './AddPitch';
+import CreatePitch from '../components/CreatePitch';
 import UpdatePitch from './UpdatePitch';
-import Modal from './utilities/Modal';
-import Portal from './utilities/Portal';
-import Toggle from './utilities/Toggle';
+import Modal from '../components/utilities/Modal';
+import Portal from '../components/utilities/Portal';
+import Toggle from '../components/utilities/Toggle';
 
 // Import CSS
 import '../styles/pitch-list.css'
@@ -40,7 +40,7 @@ const Pitches = ({ user }) => {
             <button onClick={toggle}>Add New Pitch</button>
             <Portal>
               <Modal on={on} toggle={toggle}>
-                <AddPitch 
+                <CreatePitch 
                   user={user} 
                   toggle={toggle}
                 />

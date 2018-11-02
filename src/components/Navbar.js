@@ -20,6 +20,12 @@ export default class Navbar extends Component {
           <NavLink 
             className="nav__link" 
             activeClassName="nav__link--active" 
+            to="/pitch/new">
+            Add a Pitch
+          </NavLink>
+          <NavLink 
+            className="nav__link" 
+            activeClassName="nav__link--active" 
             to="/pitches">
             My Pitches
           </NavLink>

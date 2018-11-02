@@ -10,7 +10,7 @@ import {
 import '../styles/forms.css';
 import '../styles/helpers.css';
 
-class AddPitch extends Component {
+class CreatePitch extends Component {
   static propTypes = {
     user: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -98,4 +98,4 @@ class AddPitch extends Component {
   }
 }
 
-export default graphql(addPitchMutation, { name: "addPitchMutation"})(AddPitch);
+export default graphql(addPitchMutation, { name: "addPitchMutation"})(CreatePitch);
