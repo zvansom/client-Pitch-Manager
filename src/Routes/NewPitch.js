@@ -3,7 +3,7 @@ import CreatePitch from '../components/CreatePitch';
 
 const NewPitch = (props) => (
   <div>
-    <CreatePitch />
+    <CreatePitch user={props.user} />
   </div>
 )
 

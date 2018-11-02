@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { graphql, Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 
@@ -17,19 +18,19 @@ class CreatePitch extends Component {
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
     }),
-    toggle: PropTypes.func.isRequired,
   };
   
   state = {
     title: '',
     description: '',
     client: null,
+    redirect: false,
   };
 
   submitForm = e => {
     e.preventDefault();
     const { title, description, client } = this.state;
-    const { user, toggle } = this.props;
+    const { user } = this.props;
     this.props.addPitchMutation({
       variables: {
         user: user.id,
@@ -39,13 +40,13 @@ class CreatePitch extends Component {
         status: client ? 'In Review' : 'Not Pitched',
       },
     }).then(({ data }) => {
-      this.props.refetch();
+      console.log(data);
+      // TODO: resync cache with server
+      this.setState({ redirect: true });
     }).catch(error => {
       console.error(error);
     });
-    
-    toggle();
-    
+
     this.setState({
       title: '',
       description: '',
@@ -54,6 +55,7 @@ class CreatePitch extends Component {
   }
 
   render() {
+    if(this.state.redirect) { return <Redirect to="/pitches" /> }
     const { id } = this.props.user;
     return (
       <form className="form" onSubmit={this.submitForm}>
